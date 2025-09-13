@@ -49,12 +49,12 @@ export async function POST(req: Request) {
   const response = await openai.chat.completions.create({
     model: "gpt-4o-2024-11-20",
     stream: true,
-    messages: messages,
+    messages: messagesToOpenai,
   
   })
 
   // Convert the response into a friendly text-stream
-  const stream = OpenAIStream(response)
+  const stream = OpenAIStream(response as any)
 
   // Respond with the stream
   return new StreamingTextResponse(stream)
