@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/prisma/client"
-import { Prisma } from "@prisma/client"
+import { PrismaClientKnownRequestError } from "@prisma/client"
 import dayjs from "dayjs"
 import { getServerSession } from "next-auth/next"
 
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(newInvitation, { status: 201 })
   } catch (err) {
-    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    if (err instanceof PrismaClientKnownRequestError) {
       console.log(err.message)
 
       if (err.code === "P2002") {
